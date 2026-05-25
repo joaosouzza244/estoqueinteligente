@@ -20,7 +20,6 @@ export default function App() {
   const [produtos, setProdutos] = useState([]);
   const [nomeProduto, setNomeProduto] = useState("");
   const [precoProduto, setPrecoProduto] = useState("");
-  const [logado, setLogado] = useState(false);
 
   const [vendas, setVendas] = useState([]);
 
