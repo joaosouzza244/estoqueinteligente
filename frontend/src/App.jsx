@@ -22,11 +22,23 @@ export default function App() {
       preco: precoProduto,
     };
 
+    import { useEffect } from "react";
+    import API_URL from "./api";
+
     setProdutos([...produtos, novoProduto]);
 
     setNomeProduto("");
     setPrecoProduto("");
   }
+
+  useEffect(() => {
+  fetch(`${API_URL}/produtos`)
+    .then((res) => res.json())
+    .then((data) => {
+      setProdutos(data);
+    });
+}, []);
+
 
   function venderProduto(produto) {
     setVendas([...vendas, produto]);
