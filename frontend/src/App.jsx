@@ -1,5 +1,7 @@
 import { useState } from "react";
 import Login from "./Login";
+import React, { useState, useEffect } from "react";
+import API_URL from "./api";
 
 export default function App() {
   const [logado, setLogado] = useState(
@@ -21,9 +23,6 @@ export default function App() {
       nome: nomeProduto,
       preco: precoProduto,
     };
-
-    import { useEffect } from "react";
-    import API_URL from "./api";
 
     setProdutos([...produtos, novoProduto]);
 
