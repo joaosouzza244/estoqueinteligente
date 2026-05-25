@@ -1,3 +1,5 @@
-const API_URL = "https://estoqueinteligente-nsdy.vercel.app/";
+import axios from "axios";
 
-export default API_URL;
+export default axios.create({
+  baseURL: "http://localhost:3000",
+});
