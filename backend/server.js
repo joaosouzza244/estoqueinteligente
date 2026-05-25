@@ -16,6 +16,24 @@ app.get("/", (req, res) => {
 });
 
 app.post("/register", async (req, res) => {
+  const { email, senha } = req.body;
+
+  const hash = await bcrypt.hash(senha, 10);
+
+  db.run(
+    "INSERT INTO usuarios (email, senha) VALUES (?, ?)",
+    [email, hash],
+    function (err) {
+      if (err) {
+        return res.status(400).json({ erro: "Usuário já existe" });
+      }
+
+      res.json({ sucesso: true });
+    }
+  );
+});
+
+app.post("/register", async (req, res) => {
 
   const { nome, email, senha } = req.body;
 
@@ -40,6 +58,34 @@ app.post("/register", async (req, res) => {
     }
   );
 
+});
+
+app.post("/login", (req, res) => {
+  const { email, senha } = req.body;
+
+  db.get(
+    "SELECT * FROM usuarios WHERE email = ?",
+    [email],
+    async (err, usuario) => {
+      if (!usuario) {
+        return res.status(401).json({ erro: "Usuário inválido" });
+      }
+
+      const valido = await bcrypt.compare(senha, usuario.senha);
+
+      if (!valido) {
+        return res.status(401).json({ erro: "Senha inválida" });
+      }
+
+      const token = jwt.sign(
+        { id: usuario.id },
+        "segredo",
+        { expiresIn: "7d" }
+      );
+
+      res.json({ token });
+    }
+  );
 });
 
 app.post("/login", (req, res) => {
