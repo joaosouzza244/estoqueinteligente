@@ -7,11 +7,20 @@ export default function App() {
     localStorage.getItem("logado") === "true"
   );
 
+  useEffect(() => {
+  const token = localStorage.getItem("token");
+
+  if (token) {
+    setLogado(true);
+  }
+}, []);
+
   const [pagina, setPagina] = useState("dashboard");
 
   const [produtos, setProdutos] = useState([]);
   const [nomeProduto, setNomeProduto] = useState("");
   const [precoProduto, setPrecoProduto] = useState("");
+  const [logado, setLogado] = useState(false);
 
   const [vendas, setVendas] = useState([]);
 
@@ -44,6 +53,8 @@ export default function App() {
 
   if (!logado) {
     return <Login onLogin={() => setLogado(true)} />;
+    localStorage.setItem("token", data.token);
+    
   }
 
   return (
