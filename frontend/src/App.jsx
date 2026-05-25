@@ -1,4 +1,3 @@
-import { useState } from "react";
 import Login from "./Login";
 import React, { useState, useEffect } from "react";
 import API_URL from "./api";
