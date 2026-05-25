@@ -1,90 +1,55 @@
-import {
-  Package,
-  ShoppingCart,
-  BarChart3,
-  Settings,
-} from "lucide-react";
+import { useState } from "react";
+import Login from "./Login";
+import "./App.css";
 
-function App() {
+export default function App() {
+  const [logado, setLogado] = useState(
+    localStorage.getItem("logado") === "true"
+  );
+
+  if (!logado) {
+    return <Login onLogin={() => setLogado(true)} />;
+  }
+
   return (
-    <div className="flex min-h-screen bg-[#0f172a] text-white">
-      
-      {/* Sidebar */}
-      <aside className="w-64 bg-[#111827] border-r border-gray-800 p-6">
-        
+    <div className="flex">
+      <aside className="w-64 bg-slate-900 text-white min-h-screen p-6">
         <h1 className="text-3xl font-bold mb-10">
           Estoque Inteligente
         </h1>
 
-        <nav className="space-y-4">
-          
-          <button className="flex items-center gap-3 w-full p-3 rounded-xl hover:bg-[#1e293b]">
-            <Package />
-            Produtos
-          </button>
-
-          <button className="flex items-center gap-3 w-full p-3 rounded-xl hover:bg-[#1e293b]">
-            <ShoppingCart />
-            Vendas
-          </button>
-
-          <button className="flex items-center gap-3 w-full p-3 rounded-xl hover:bg-[#1e293b]">
-            <BarChart3 />
-            Relatórios
-          </button>
-
-          <button className="flex items-center gap-3 w-full p-3 rounded-xl hover:bg-[#1e293b]">
-            <Settings />
-            Configurações
-          </button>
-
-        </nav>
+        <ul className="space-y-6">
+          <li>Produtos</li>
+          <li>Vendas</li>
+          <li>Relatórios</li>
+          <li>Configurações</li>
+        </ul>
       </aside>
 
-      {/* Conteúdo */}
-      <main className="flex-1 p-10">
-
-        <h2 className="text-4xl font-bold mb-8">
+      <main className="flex-1 bg-slate-950 text-white p-10">
+        <h1 className="text-5xl font-bold mb-10">
           Dashboard
-        </h2>
+        </h1>
 
         <div className="grid grid-cols-3 gap-6">
-
-          <div className="bg-[#1e293b] p-6 rounded-2xl">
-            <h3 className="text-gray-400">
-              Produtos
-            </h3>
-
-            <p className="text-4xl font-bold mt-3">
-              120
-            </p>
+          <div className="bg-slate-800 p-6 rounded-2xl">
+            <p>Produtos</p>
+            <h2 className="text-4xl font-bold">120</h2>
           </div>
 
-          <div className="bg-[#1e293b] p-6 rounded-2xl">
-            <h3 className="text-gray-400">
-              Vendas Hoje
-            </h3>
-
-            <p className="text-4xl font-bold mt-3">
-              35
-            </p>
+          <div className="bg-slate-800 p-6 rounded-2xl">
+            <p>Vendas Hoje</p>
+            <h2 className="text-4xl font-bold">35</h2>
           </div>
 
-          <div className="bg-[#1e293b] p-6 rounded-2xl">
-            <h3 className="text-gray-400">
-              Estoque Baixo
-            </h3>
-
-            <p className="text-4xl font-bold mt-3 text-red-400">
+          <div className="bg-slate-800 p-6 rounded-2xl">
+            <p>Estoque Baixo</p>
+            <h2 className="text-4xl font-bold text-red-400">
               8
-            </p>
+            </h2>
           </div>
-
         </div>
-
       </main>
     </div>
   );
 }
-
-export default App;
